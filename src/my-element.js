@@ -1,16 +1,19 @@
 import { LitElement, css, html } from 'lit'
-import { getPelicula } from './modules/dataMovies'
+import { 
+  getPelicula,
+  getPeliculaAno
+} from './modules/dataMovies'
 
 
 export class MyElement extends LitElement {
-  static properties() {
-    return {}
-  }
+  static properties ={
+    selectedCategoria: {type: Number}
+  };
 
   constructor() {
     super()
-   
-  }
+    this.selectedCategoria = 0;
+  };
 
   render() {
     return html`
@@ -23,23 +26,28 @@ export class MyElement extends LitElement {
     <li><a href="#" class="active"><i class='bx bxs-dashboard icon' ></i> Dashboard</a></li>
     <li class="divider" data-text="main">Main</li>
     <li>
-      <a ><i class='bx bxs-inbox icon' ></i> peliculas por año <i class='bx bx-chevron-right icon-right' ></i></a>
+      <a @click="${()=> this.changeCategory(1)}" ><i class='bx bxs-inbox icon' ></i> peliculas por año <i class='bx bx-chevron-right icon-right' ></i></a>
     </li>
     <li>
-    <a href="#"><i class='bx bxs-chart icon' ></i>películas por actor</a>
+    <a @click="${()=> this.changeCategory(2)}" ><i class='bx bxs-chart icon' ></i>películas por actor</a>
     </li>
     <li>
-    <a href="#"><i class='bx bxs-widget icon' ></i> Ranking</a>
+    <a @click="${()=> this.changeCategory(3)}"><i class='bx bxs-widget icon' ></i> Ranking</a>
     </li>
-    <a href="#"><i class='bx bxs-widget icon' ></i>Todas las peliculas</a>
+    <li>
+    <a @click="${()=> this.changeCategory(4)}"><i class='bx bxs-widget icon' ></i>Todas las peliculas</a>
     </li>
-    <a href="#"><i class='bx bxs-widget icon' ></i> títulos y años de lanzamiento originales</a>
+    <li>
+    <a @click="${()=> this.changeCategory(5)}"><i class='bx bxs-widget icon' ></i> títulos y años de lanzamiento originales</a>
     </li>
-    <a href="#"><i class='bx bxs-widget icon' ></i> identificadores y títulos</a>
+    <li>
+    <a @click="${()=> this.changeCategory(6)}"><i class='bx bxs-widget icon' ></i> identificadores y títulos</a>
     </li>
-    <a href="#"><i class='bx bxs-widget icon' ></i>Películas y programas de TV</a>
+    <li>
+    <a @click="${()=> this.changeCategory(7)}"><i class='bx bxs-widget icon' ></i>Películas y programas de TV</a>
     </li>
-    <a href="#"><i class='bx bxs-widget icon' ></i>Mucha info</a>
+    <li>
+    <a @click="${()=> this.changeCategory(8)}"><i class='bx bxs-widget icon' ></i>Mucha info</a>
     </li>
   </ul>
 </section>
@@ -75,11 +83,17 @@ export class MyElement extends LitElement {
       <li><a href="#" class="active">Dashboard</a></li>
     </ul>
     </div>
+    <my-pelicula .category=${this.selectedCategoria}></my-pelicula>
   </main>
   <!-- MAIN -->
 </section>
 <!-- NAVBAR -->
     `
+  }
+
+  changeCategory(category) {
+    this.selectedCategoria = category;
+    console.log(this.selectedCategoria);
   }
 
 
@@ -687,6 +701,85 @@ main .btn-send:hover {
 
     `
   }
-}
 
+}
+export class myPelicula extends LitElement {
+  static properties() {
+   pelicula: {type: Array}
+   nombrePelicula: {type: String}
+   year: {type: Number}
+   actores: {type: String}
+   rank : {type: String}
+   category : {type: Number}
+  }
+
+  constructor() {
+    super()
+    this.nombrePelicula = '';
+    this.year = 0;
+    this.actores = '';
+    this.rank = 0;
+    this.category = 0;
+    this.pelicula = []
+  }
+  updated(changedProperties) {
+    if (changedProperties.has('category')) {
+      this.loadProducts();
+      console.log(this.category)
+    }
+  }
+  async loadProducts() {
+    switch (this.category) {
+      case 1:
+        this.pelicula = await getPelicula('aNDRES');
+        break;
+      case 2:
+        this.pelicula = await getAllShirts();
+        break;
+      case 3:
+        this.pelicula = await getAllJeans();
+        break;
+      case 4:
+        this.pelicula = null; 
+        break;
+      case 5:
+          this.pelicula = await getAllJeans();
+        break;
+      case 6:
+        this.pelicula = await getAllJeans();
+        break;
+      case 7:
+        this.pelicula = await getAllJeans();
+        break;
+      case 8:
+        this.pelicula = await getAllJeans();
+        break;                                    
+      default:
+        this.pelicula = await getPelicula('Andres');
+    }
+  }
+  render(){
+    html`
+    <div class="peliculaContainer">
+    ${Array.isArray(this.pelicula) && this.pelicula.length > 0 ?
+      this.pelicula.map(product => html`
+      <div class="pelicula">
+      <div class="imagenPelicula">
+        <img src="" alt="">
+      </div>
+      <div class="informacionPelicula"></div>
+      <h2>NombrePelicula</h2>
+      <h4>Año</h4>
+      <p>Actores</p>
+      <h2>Rank</h2>
+      </div>
+      </div>
+      `)
+      :html`<p>No pelicula found</p>`
+    }
+    `
+  }
+}
+customElements.define('my-pelicula', myPelicula)
 customElements.define('my-element', MyElement)
+
