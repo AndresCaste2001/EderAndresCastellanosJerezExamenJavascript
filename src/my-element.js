@@ -14,33 +14,32 @@ export class MyElement extends LitElement {
 
   render() {
     return html`
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="style.css">
     <!-- SIDEBAR -->
 	<section id="sidebar">
-  <a href="#" class="brand"><i class='bx bxs-smile icon'></i> AdminSite</a>
+  <a href="#" class="brand"><i class='bx bxs-smile icon'></i> AndresMovies</a>
   <ul class="side-menu">
     <li><a href="#" class="active"><i class='bx bxs-dashboard icon' ></i> Dashboard</a></li>
     <li class="divider" data-text="main">Main</li>
     <li>
-      <a href="#"><i class='bx bxs-inbox icon' ></i> Elements <i class='bx bx-chevron-right icon-right' ></i></a>
-      <ul class="side-dropdown">
-        <li><a href="#">Alert</a></li>
-        <li><a href="#">Badges</a></li>
-        <li><a href="#">Breadcrumbs</a></li>
-        <li><a href="#">Button</a></li>
-      </ul>
+      <a ><i class='bx bxs-inbox icon' ></i> peliculas por año <i class='bx bx-chevron-right icon-right' ></i></a>
     </li>
-    <li><a href="#"><i class='bx bxs-chart icon' ></i> Charts</a></li>
-    <li><a href="#"><i class='bx bxs-widget icon' ></i> Widgets</a></li>
-    <li class="divider" data-text="table and forms">Table and forms</li>
-    <li><a href="#"><i class='bx bx-table icon' ></i> Tables</a></li>
     <li>
-      <a href="#"><i class='bx bxs-notepad icon' ></i> Forms <i class='bx bx-chevron-right icon-right' ></i></a>
-      <ul class="side-dropdown">
-        <li><a href="#">Basic</a></li>
-        <li><a href="#">Select</a></li>
-        <li><a href="#">Checkbox</a></li>
-        <li><a href="#">Radio</a></li>
-      </ul>
+    <a href="#"><i class='bx bxs-chart icon' ></i>películas por actor</a>
+    </li>
+    <li>
+    <a href="#"><i class='bx bxs-widget icon' ></i> Ranking</a>
+    </li>
+    <a href="#"><i class='bx bxs-widget icon' ></i>Todas las peliculas</a>
+    </li>
+    <a href="#"><i class='bx bxs-widget icon' ></i> títulos y años de lanzamiento originales</a>
+    </li>
+    <a href="#"><i class='bx bxs-widget icon' ></i> identificadores y títulos</a>
+    </li>
+    <a href="#"><i class='bx bxs-widget icon' ></i>Películas y programas de TV</a>
+    </li>
+    <a href="#"><i class='bx bxs-widget icon' ></i>Mucha info</a>
     </li>
   </ul>
 </section>
@@ -75,61 +74,6 @@ export class MyElement extends LitElement {
       <li class="divider">/</li>
       <li><a href="#" class="active">Dashboard</a></li>
     </ul>
-    <div class="info-data">
-      <div class="card">
-        <div class="head">
-          <div>
-            <h2>1500</h2>
-            <p>Traffic</p>
-          </div>
-          <i class='bx bx-trending-up icon' ></i>
-        </div>
-        <span class="progress" data-value="40%"></span>
-        <span class="label">40%</span>
-      </div>
-      <div class="card">
-        <div class="head">
-          <div>
-            <h2>234</h2>
-            <p>Sales</p>
-          </div>
-          <i class='bx bx-trending-down icon down' ></i>
-        </div>
-        <span class="progress" data-value="60%"></span>
-        <span class="label">60%</span>
-      </div>
-      <div class="card">
-        <div class="head">
-          <div>
-            <h2>465</h2>
-            <p>Pageviews</p>
-          </div>
-          <i class='bx bx-trending-up icon' ></i>
-        </div>
-        <span class="progress" data-value="30%"></span>
-        <span class="label">30%</span>
-      </div>
-      <div class="card">
-        <div class="head">
-          <div>
-            <h2>235</h2>
-            <p>Visitors</p>
-          </div>
-          <i class='bx bx-trending-up icon' ></i>
-        </div>
-        <span class="progress" data-value="80%"></span>
-        <span class="label">80%</span>
-      </div>
-    </div>
-    <div class="data">
-      <div class="content-data">
-        <div class="head">
-          <h3>Sales Report</h3>
-        </div>
-        <!-- conteido -->
-        <h1>Hola Mundo</h1>
-      </div>
-    
     </div>
   </main>
   <!-- MAIN -->
@@ -189,7 +133,7 @@ li {
 /* SIDEBAR */
 #sidebar {
 	position: fixed;
-	max-width: 260px;
+	max-width: 28vh;
 	width: 100%;
 	background: var(--light);
 	top: 0;
@@ -200,6 +144,7 @@ li {
 	transition: all .3s ease;
 	z-index: 200;
 	overflow: scroll;
+  overflow-x: scroll;
 }
 #sidebar.hide {
 	max-width: 60px;
