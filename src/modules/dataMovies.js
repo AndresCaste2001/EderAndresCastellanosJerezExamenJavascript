@@ -15,4 +15,5 @@ export const getPelicula = async(id)=>{
     } catch (error) {
       console.error('Ocurrió un error al obtener las peliculas:', error);
     }
+    
   }
