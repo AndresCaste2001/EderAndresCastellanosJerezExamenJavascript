@@ -83,8 +83,10 @@ export class MyElement extends LitElement {
       <li><a href="#" class="active">Dashboard</a></li>
     </ul>
     </div>
-    <my-pelicula .category=${this.selectedCategoria}></my-pelicula>
   </main>
+  <div class="MovieZone">
+  <my-pelicula .category=${this.selectedCategoria}></my-pelicula>
+  </div>
   <!-- MAIN -->
 </section>
 <!-- NAVBAR -->
@@ -120,7 +122,12 @@ export class MyElement extends LitElement {
 	--dark-blue: #0C5FCD;
 	--red: #FC3B56;
 }
-
+.MovieZone{
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow-y: scroll;
+}
 html {
 	overflow-x: hidden;
 }
@@ -703,14 +710,14 @@ main .btn-send:hover {
   }
 
 }
-export class myPelicula extends LitElement {
-  static properties() {
-   pelicula: {type: Array}
-   nombrePelicula: {type: String}
-   year: {type: Number}
-   actores: {type: String}
-   rank : {type: String}
-   category : {type: Number}
+export class MyPelicula extends LitElement {
+  static properties = {
+   pelicula: {type: Array},
+   nombrePelicula: {type: String},
+   year: {type: Number},
+   actores: {type: String},
+   rank: {type: String},
+   category: {type: Number}
   }
 
   constructor() {
@@ -721,38 +728,38 @@ export class myPelicula extends LitElement {
     this.rank = 0;
     this.category = 0;
     this.pelicula = []
+    this.loadProducts();
   }
   updated(changedProperties) {
     if (changedProperties.has('category')) {
       this.loadProducts();
-      console.log(this.category)
     }
   }
   async loadProducts() {
     switch (this.category) {
       case 1:
-        this.pelicula = await getPelicula('aNDRES');
+        this.pelicula = await getPelicula('ANDRES');
         break;
       case 2:
-        this.pelicula = await getAllShirts();
+        this.pelicula = await getPelicula('Andres');
         break;
       case 3:
-        this.pelicula = await getAllJeans();
+        this.pelicula = await getPelicula('Andres');
         break;
       case 4:
-        this.pelicula = null; 
+        this.pelicula = getPelicula('Andres'); 
         break;
       case 5:
-          this.pelicula = await getAllJeans();
+          this.pelicula = await getPelicula('Andres');
         break;
       case 6:
-        this.pelicula = await getAllJeans();
+        this.pelicula = await getPelicula('Andres');
         break;
       case 7:
-        this.pelicula = await getAllJeans();
+        this.pelicula = await getPelicula('Andres');
         break;
       case 8:
-        this.pelicula = await getAllJeans();
+        this.pelicula = await getPelicula('Andres');
         break;                                    
       default:
         this.pelicula = await getPelicula('Andres');
@@ -760,26 +767,40 @@ export class myPelicula extends LitElement {
   }
   render(){
     html`
-    <div class="peliculaContainer">
-    ${Array.isArray(this.pelicula) && this.pelicula.length > 0 ?
-      this.pelicula.map(product => html`
-      <div class="pelicula">
-      <div class="imagenPelicula">
-        <img src="" alt="">
-      </div>
-      <div class="informacionPelicula"></div>
-      <h2>NombrePelicula</h2>
-      <h4>Año</h4>
-      <p>Actores</p>
-      <h2>Rank</h2>
-      </div>
-      </div>
-      `)
-      :html`<p>No pelicula found</p>`
-    }
-    `
+    <p>HOLAAAA</p>
+    `;
+  }
+  static get styles() {
+    return css`
+      @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+
+  * {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --grey: #F1F0F6;
+    --dark-grey: #8D8D8D;
+    --light: #fff;
+    --dark: #000;
+    --green: #81D43A;
+    --light-green: #E3FFCB;
+    --blue: #1775F1;
+    --light-blue: #D0E4FF;
+    --dark-blue: #0C5FCD;
+    --red: #FC3B56;
+  }
+  .peliculaContainer{
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+  `
   }
 }
-customElements.define('my-pelicula', myPelicula)
+customElements.define('my-pelicula', MyPelicula)
 customElements.define('my-element', MyElement)
 
